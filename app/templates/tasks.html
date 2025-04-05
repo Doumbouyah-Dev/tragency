@@ -1,0 +1,50 @@
+<!-- templates/tasks.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Your Tasks | Task Manager</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="/">Task Manager</a>
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" href="/create_task">Create Task</a></li>
+                <li class="nav-item"><a class="nav-link" href="/user-details/{{ user.id }}">Profile</a></li>
+                <li class="nav-item"><a class="nav-link" href="/logout">Logout</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container mt-4">
+    <h2 class="mb-4">Your Tasks</h2>
+
+    {% if tasks %}
+        <div class="row row-cols-1 row-cols-md-2 g-4">
+            {% for task in tasks %}
+                <div class="col">
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <a href="/task-details/{{ task.id }}">{{ task.taskname }}</a>
+                            </h5>
+                            <p class="card-text">{{ task.taskdescription }}</p>
+                            <p class="text-muted">Priority: {{ task.priority }} | Status: {{ task.status }}</p>
+                            <p class="text-muted">Due: {{ task.enddate.strftime('%Y-%m-%d') }}</p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>No tasks found. <a href="/create_task">Create your first task</a>.</p>
+    {% endif %}
+</div>
+
+</body>
+</html>
